@@ -27,8 +27,8 @@ const Statistics = ({good,neutral, negative}) => {
                     <td>All</td>
                     <td>{good+negative+neutral}</td>
                 </tr><tr>
-                    <th>Company</th>
-                    <th>Contact</th>
+                    <th>Type</th>
+                    <th>Qty</th>
                 </tr>
                 <tr>
                     <td>Good</td>
