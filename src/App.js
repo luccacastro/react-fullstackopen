@@ -7,8 +7,6 @@ function App(){
     const [user, setUser] = useState([])
     const [alert, setAlert] = useState(false) 
     const [searchItem, setSearchItem] = useState()
-    // const [name, setName] = useState()
-    // const [phone, setPhone] = useState()
 
     const addUser = (event) => {
         setAlert(false)
@@ -28,9 +26,6 @@ function App(){
             }
             setUser(user.concat(userObject))
         }
-       
-        // setName('')
-        // setPhone('')
     }
     console.log(user.map(x => x.name))
     
@@ -56,11 +51,6 @@ function App(){
             </form>
             <ul>
                 <UserList users={user}/>
-                {/* {user.map(us => 
-                    <li key={us.name}>
-                        {us.name}: {us.phone}
-                    </li>
-                )} */}
             </ul>
             <Filter userList={user}/>
         </div>
