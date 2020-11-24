@@ -16,7 +16,7 @@ const Filter = ({userList}) => {
                 onChange={e => setSearchItem(e.target.value)}
             />
             <h2>Results</h2>
-            {console.log(filteredUsers)}
+    
             <UserList users={filteredUsers}/>
         </div>
     )

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 import './App.css'
 import Filter from './Filter'
 import UserList from './UserList'
@@ -6,7 +7,15 @@ import UserList from './UserList'
 function App(){
     const [user, setUser] = useState([])
     const [alert, setAlert] = useState(false) 
-    const [searchItem, setSearchItem] = useState()
+    
+    useEffect(() =>{
+        axios
+          .get('http://localhost:3001/persons')
+          .then(response => {
+              setUser(response.data)
+          })
+    })
+    // console.log(user)
 
     const addUser = (event) => {
         setAlert(false)
@@ -27,7 +36,7 @@ function App(){
             setUser(user.concat(userObject))
         }
     }
-    console.log(user.map(x => x.name))
+   
     
     
     return (
