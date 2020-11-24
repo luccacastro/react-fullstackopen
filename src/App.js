@@ -1,55 +1,71 @@
-
 import React, { useState } from 'react';
 import './App.css'
-import Course from './Course'
+import Filter from './Filter'
+import UserList from './UserList'
 
-function App() {
-  const courses = [
-    {
-      name: 'Half Stack application development',
-      id: 1,
-      parts: [
-        {
-          name: 'Fundamentals of React',
-          exercises: 10,
-          id: 1
-        },
-        {
-          name: 'Using props to pass data',
-          exercises: 7,
-          id: 2
-        },
-        {
-          name: 'State of a component',
-          exercises: 14,
-          id: 3
-        },
-        {
-          name: 'Redux',
-          exercises: 11,
-          id: 4
+function App(){
+    const [user, setUser] = useState([])
+    const [alert, setAlert] = useState(false) 
+    const [searchItem, setSearchItem] = useState()
+    // const [name, setName] = useState()
+    // const [phone, setPhone] = useState()
+
+    const addUser = (event) => {
+        setAlert(false)
+        event.preventDefault()
+        const nameList = user.map(x => x.name)
+       
+        
+        let name = event.target.name.value
+        let phone = event.target.phone.value
+        if(nameList.find(x => x == name)){
+            setAlert(true)
+            console.log("ERROR NAME IS ALREADY BEING USED")
+        }else{
+            const userObject = {
+                name : name,
+                phone: phone
+            }
+            setUser(user.concat(userObject))
         }
-      ]
-    }, 
-    {
-      name: 'Node.js',
-      id: 2,
-      parts: [
-        {
-          name: 'Routing',
-          exercises: 3,
-          id: 1
-        },
-        {
-          name: 'Middlewares',
-          exercises: 7,
-          id: 2
-        }
-      ]
+       
+        // setName('')
+        // setPhone('')
     }
-  ]
-
-  return <Course courses={courses}/>
+    console.log(user.map(x => x.name))
+    
+    
+    return (
+        <div>
+            <h2>Phonebook</h2>
+            {alert? <h4>Error: This username is taken</h4>: false}
+            
+            <form onSubmit={addUser}>
+                <div>
+                    <label >Name</label>
+                     <input type="text" id="name"/>
+                </div>
+                <div>
+                    <label>Phone</label>
+                     <input type="text" id="phone"/>
+                </div>
+                
+                <div>
+                    <button type="submit">save</button>
+                </div>
+            </form>
+            <ul>
+                <UserList users={user}/>
+                {/* {user.map(us => 
+                    <li key={us.name}>
+                        {us.name}: {us.phone}
+                    </li>
+                )} */}
+            </ul>
+            <Filter userList={user}/>
+        </div>
+    )
 }
 
-export default App;
+
+export default App
