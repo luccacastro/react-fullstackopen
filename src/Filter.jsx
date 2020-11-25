@@ -1,23 +1,31 @@
 import React, { useState } from 'react'
 import UserList from './UserList'
 
-const Filter = ({userList}) => {
-    const [searchItem, setSearchItem] = useState()
-    const filteredUsers = userList.filter(item =>{
-        if(!searchItem) return true
-        if(item.name.includes(searchItem)) return true
+const Filter = ({countrySearch}) => {
+    const [countryName, setCountryName] = useState('')
+    const filteredCountries = countrySearch.filter(item =>{
+        if(!countryName) return true
+        if(item.name.startsWith(countryName)) return true
     })
+    
+    // const countryLstLen = () =>{
+    //     setCountriesQty(filteredCountries.length)
+    // }
 
     return(
         <div>
             <input
                 type="text"
-                value={searchItem}
-                onChange={e => setSearchItem(e.target.value)}
+                value={countryName}
+                onChange={e =>{
+                    e.preventDefault()
+                    setCountryName(e.target.value)
+                } }
             />
-            <h2>Results</h2>
-    
-            <UserList users={filteredUsers}/>
+            {filteredCountries.length> 40? <h2>Too Many Results</h2> :<UserList users={filteredCountries}/> }
+
+            
+            
         </div>
     )
 }
