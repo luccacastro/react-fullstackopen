@@ -1,26 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import CountryDetails from './CountryDetails'
+import React, { Component } from 'react'
+import phonebookService from './service/phonebook'
 
 
-const UserList = ({users}) => {
-    const [show, setShow] = useState({})
-
-    const toggleDetails = id => {
-        setShow(prev => Boolean(!prev[id]) ? {...prev, [id]: true} : {...prev, [id]: false});
-    }
-   
+const UserList = ({users, deleteContact}) => {
+    console.log(users.map(x => x.name))
     return(
         <ul>
-            {users.length === 1? <CountryDetails item={users[0]}/>
-            :
-            users.map((user, index) => 
-                <div key={user.name}>
-                    <li >{user.name}</li> 
-                    <button onClick={() => toggleDetails(user.name)}>show</button>
-                    {show[user.name]? <CountryDetails item={user}/> : false}
-                </div>
-                )
-            }
+            {users.map((user , index) => 
+                <>
+                    <li key={user.name}>{user.name} : {user.phone}</li>
+                    <button onClick={() => deleteContact(index)}>delete</button>
+                </>
+                )}
         </ul>
     )
 }
